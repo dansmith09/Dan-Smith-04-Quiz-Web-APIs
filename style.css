@@ -24,7 +24,7 @@ header {
     border-radius: 10px;
 }
 
-.mainContainer, .startScreenContainer {
+.mainContainer, .startScreenContainer, .finalScoreContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +33,7 @@ header {
 }
 
 /* Hides mainContainer by default */
-.mainContainer {
+.mainContainer, .finalScoreContainer {
     display: none;
 }
 
@@ -55,7 +55,7 @@ ul {
     align-items: center;
 }
 
-li button {
+li button, #submitScoreButton {
     padding: 10px;
     border-radius: 15px;
     margin-left: 20px;
@@ -69,7 +69,7 @@ li button {
     text-align: center;
 }
 
-h4 {
+h4, #submitScoreButton, #playerName {
     margin-top: 20px;
 }
 

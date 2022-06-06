@@ -19,9 +19,11 @@ var quizQuestion = document.getElementById('quizQuestion');
 var comment = document.getElementById('comment');
 var timer = document.getElementById('timer');
 var timeLeft = 70;
+var finalScore = '';
 // Defining CSS that will be changed
 var mainContainer = document.querySelector('.mainContainer');
 var startScreenContainer = document.querySelector('.startScreenContainer');
+var finalScoreContainer = document.querySelector('.finalScoreContainer');
 // creates local storage for highscores
 var highScoresData = {};
 
@@ -47,10 +49,11 @@ function startQuiz() {
     answer3Button.innerHTML = quizObject.q1answers[2];
     answer4Button.innerHTML = quizObject.q1answers[3];
     // Add listener for answer buttons
-    answer1Button.addEventListener('click', q1right);
-    answer2Button.addEventListener('click', q1wrong);
-    answer3Button.addEventListener('click', q1wrong);
-    answer4Button.addEventListener('click', q1wrong);
+    answer1Button.addEventListener('click', qright);
+    answer2Button.addEventListener('click', qwrong);
+    answer3Button.addEventListener('click', qwrong);
+    answer4Button.addEventListener('click', qwrong);
+
 }
 
 // Function to change questions and answers
@@ -61,32 +64,66 @@ function questionTwo() {
     answer2Button.innerHTML = quizObject.q2answers[1];
     answer3Button.innerHTML = quizObject.q2answers[2];
     answer4Button.innerHTML = quizObject.q2answers[3];
+    // Remove previous event listener
+    answer1Button.removeEventListener('click', qright);
+    answer2Button.removeEventListener('click', qwrong);
+    answer3Button.removeEventListener('click', qwrong);
+    answer4Button.removeEventListener('click', qwrong);
+    // Add listener for new answer buttons
+    answer1Button.addEventListener('click', qwrong);
+    answer2Button.addEventListener('click', qright);
+    answer3Button.addEventListener('click', qwrong);
+    answer4Button.addEventListener('click', qwrong);
 }
 
 // Function to change questions and answers
 function questionThree() {
     // Changes to question three
-    quizQuestion.innerHTML = quizObject.questions[1];
+    quizQuestion.innerHTML = quizObject.questions[2];
     answer1Button.innerHTML = quizObject.q3answers[0];
     answer2Button.innerHTML = quizObject.q3answers[1];
     answer3Button.innerHTML = quizObject.q3answers[2];
     answer4Button.innerHTML = quizObject.q3answers[3];
+    // Remove previous event listener
+    answer1Button.removeEventListener('click', qwrong);
+    answer2Button.removeEventListener('click', qright);
+    answer3Button.removeEventListener('click', qwrong);
+    answer4Button.removeEventListener('click', qwrong);
+    // Add listener for new answer buttons
+    answer1Button.addEventListener('click', qwrong);
+    answer2Button.addEventListener('click', qwrong);
+    answer3Button.addEventListener('click', qright);
+    answer4Button.addEventListener('click', qwrong);
 }
 
 // Function to change questions and answers
 function questionFour() {
     // Changes to question four
-    quizQuestion.innerHTML = quizObject.questions[1];
+    quizQuestion.innerHTML = quizObject.questions[3];
     answer1Button.innerHTML = quizObject.q4answers[0];
     answer2Button.innerHTML = quizObject.q4answers[1];
     answer3Button.innerHTML = quizObject.q4answers[2];
     answer4Button.innerHTML = quizObject.q4answers[3];
+    // Remove previous event listener
+    answer1Button.removeEventListener('click', qwrong);
+    answer2Button.removeEventListener('click', qwrong);
+    answer3Button.removeEventListener('click', qright);
+    answer4Button.removeEventListener('click', qwrong);
+    // Add listener for new answer buttons
+    answer1Button.addEventListener('click', qwrong);
+    answer2Button.addEventListener('click', qwrong);
+    answer3Button.addEventListener('click', qwrong);
+    answer4Button.addEventListener('click', qright);
 }
 
 // Function to set the timer
 function setTimer() {
     var countdown = setInterval(function() {
-        if (timeLeft == 1) {
+        if (finalScore != '') {
+            clearInterval(countdown)
+            timer.innerHTML = finalScore;
+        }
+        else if (timeLeft == 1) {
             timer.innerHTML = timeLeft;
             document.querySelector('#seconds').innerHTML = 'second';
             timeLeft--;
@@ -95,7 +132,7 @@ function setTimer() {
             document.querySelector('#seconds').innerHTML = 'seconds';
             timeLeft--;
         } else {
-            clearInterval()
+            clearInterval(countdown)
             //displays failed message
             quizQuestion.innerHTML = "You ran out of time... You failed."
             // hides buttons
@@ -108,33 +145,52 @@ function setTimer() {
     }, 1000);
 }
 
-// Hide comment function 
-function hideComment() {
-    comment.style.visibility = hidden;
-}
-
 // Function for right answer
-function q1right () {
+function qright () {
     // display correct comment
     comment.innerHTML = 'Correct!';
     comment.style.color = 'green';
-    comment.style.visibility = 'visible'
-
-    // moves to question two
-    questionTwo();
+    comment.style.visibility = 'visible';
+    // Moves to next question
+    if (quizQuestion.innerHTML == quizObject.questions[0]) {
+        questionTwo();
+    } else if (quizQuestion.innerHTML == quizObject.questions[1]) {
+        questionThree();
+    } else if (quizQuestion.innerHTML == quizObject.questions[2]) {
+        questionFour();
+    } else if (quizQuestion.innerHTML == quizObject.questions[3]) {
+        // final score
+        finalScore = timeLeft;
+        // Show finished screen?
+        finalScoreContainer.style.display = 'flex'
+        mainContainer.style.display = 'none';
+        document.querySelector('#finalScoreSpan').innerHTML = finalScore;
+    }
 }
 // Function for wrong answer
-function q1wrong () {
+function qwrong () {
     // display correct comment
+    timeLeft = timeLeft - 10;
     comment.innerHTML = 'Wrong!';
     comment.style.color = 'red';
     comment.style.visibility = 'visible'
-    timeLeft = timeLeft - 5;
-    // moves to question two
-    questionTwo();
+    // Moves to next question
+    if (quizQuestion.innerHTML == quizObject.questions[0]) {
+        questionTwo();
+    } else if (quizQuestion.innerHTML == quizObject.questions[1]) {
+        questionThree();
+    } else if (quizQuestion.innerHTML == quizObject.questions[2]) {
+        questionFour();
+    } else if (quizQuestion.innerHTML == quizObject.questions[3]) {
+        // final score
+        finalScore = timeLeft;
+        // Show finished screen
+        document.querySelector('#finalScoreSpan').innerHTML = finalScore;
+        finalScoreContainer.style.display = 'flex'
+        mainContainer.style.display = 'none';
+    }
 }
-//
 
-// Function to display comment about question
+// function to save highscores to local storage
 
-// Function to display failed message
+// function to view highscores
