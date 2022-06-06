@@ -1,0 +1,78 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    /* border: 1px red solid; */
+}
+
+header {
+    display: flex;
+    width: 100vw;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+#highScoresButton {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.mainContainer, .startScreenContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 200px);
+    flex-direction: column;
+}
+
+/* Hides mainContainer by default */
+.mainContainer {
+    display: none;
+}
+
+/* Hides comment by default */
+#comment {
+    visibility: hidden;
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+li button {
+    padding: 10px;
+    border-radius: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+
+}
+.startScreenContainer ul li{
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+h4 {
+    margin-top: 20px;
+}
+
+#startButton {
+    width: auto;
+}
