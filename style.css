@@ -3,6 +3,14 @@
     margin: 0;
     padding: 0;
     /* border: 1px red solid; */
+    font-family: 'Kdam Thmor Pro', sans-serif;
+}
+
+:root {
+    --dark: #8892B3;
+    --light: #E1E8FF;
+    --reallyLight: #F0F4FF;
+    --highlight: #C2C2FF;
 }
 
 header {
@@ -85,4 +93,16 @@ h4, #submitScoreButton, #playerName, #refreshButton {
     display: flex;
     justify-content: center;
     width: 70%;
+}
+
+/* Color Styling */
+
+/* buttons */
+button {
+    background-color: var(--highlight);
+}
+
+header {
+    background-color: var(--light);
+    border-bottom: 5px var(--dark) solid;
 }

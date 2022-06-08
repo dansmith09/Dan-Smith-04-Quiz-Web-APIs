@@ -1,10 +1,10 @@
 // Adding quiz content to object
 var quizObject = {
-    questions: ['Question 1 is a question', 'Question 2 is a question', 'Question 3 is a question', 'Question 4 is a question'],
-    q1answers: ['Answer for Q1', 'Another answer for Q1', 'Different A for Q1', 'Final answer for Q1'],
-    q2answers: ['Answer for Q2', 'Another answer for Q2', 'Different A for Q2', 'Final answer for Q2'],
-    q3answers: ['Answer for Q3', 'Another answer for Q3', 'Different A for Q3', 'Final answer for Q3'],
-    q4answers: ['Answer for Q4', 'Another answer for Q4', 'Different A for Q4', 'Final answer for Q4']
+    questions: ['Commonly used data types DO NOT include', 'The condition in an if / else statement is enclosed with ____.', 'String values must be enclosed with ____ when being assigned to variables.', 'Arrays in JavaScript can be used to store ____.'],
+    q1answers: ['Alerts', 'Booleans', 'Strings', 'Numbers'],
+    q2answers: ['Quotes', 'Parenthesis', 'Square Brackets', 'Curly Brackets'],
+    q3answers: ['Commas', 'Curly Brackets', 'Quotes', 'Parenthesis'],
+    q4answers: ['Numbers', 'Other Arrays', 'Booleans', 'All of the above']
 };
 
 // Defining Buttons that will be programes
@@ -244,17 +244,21 @@ function renderHighScores() {
     var playerScoreUl = document.getElementById('playerScoreUl');
 
     var userNameLocalStorage = localStorage.getItem('playerName');
-    var paraName = document.createElement("p");
-    var playerNamePEl = document.createTextNode(userNameLocalStorage);
-    paraName.appendChild(playerNamePEl);
-    playerNameUl.appendChild(paraName);
-
     var playerScoreLocalStorage = localStorage.getItem('score');
-    var paraScore = document.createElement("p");
-    var playerScorepEl = document.createTextNode(playerScoreLocalStorage);
-    paraScore.appendChild(playerScorepEl);
-    playerScoreUl.appendChild(paraScore);
+
+    if (userNameLocalStorage && playerScoreLocalStorage) {
+        var paraName = document.createElement("p");
+        var playerNamePEl = document.createTextNode(userNameLocalStorage);
+        paraName.appendChild(playerNamePEl);
+        playerNameUl.appendChild(paraName);
+    
+        var paraScore = document.createElement("p");
+        var playerScorepEl = document.createTextNode(playerScoreLocalStorage);
+        paraScore.appendChild(playerScorepEl);
+        playerScoreUl.appendChild(paraScore);
+    }
 }
+
 
 // function renderUserScore(){
 //     var userInitials = localStorage.getItem("initials");
