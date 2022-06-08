@@ -19,12 +19,12 @@ header {
     text-align: center;
 }
 
-#highScoresButton {
+#highScoresButton, #refreshButton{
     padding: 10px;
     border-radius: 10px;
 }
 
-.mainContainer, .startScreenContainer, .finalScoreContainer {
+.mainContainer, .startScreenContainer, .finalScoreContainer, .highScoresContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +33,7 @@ header {
 }
 
 /* Hides mainContainer by default */
-.mainContainer, .finalScoreContainer {
+.mainContainer, .finalScoreContainer, .highScoresContainer  {
     display: none;
 }
 
@@ -69,10 +69,20 @@ li button, #submitScoreButton {
     text-align: center;
 }
 
-h4, #submitScoreButton, #playerName {
+h4, #submitScoreButton, #playerName, #refreshButton {
     margin-top: 20px;
 }
 
 #startButton {
     width: auto;
+}
+
+.highScoresContainer ul {
+    width: 40%;
+}
+
+.ulContainer {
+    display: flex;
+    justify-content: center;
+    width: 70%;
 }

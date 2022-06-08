@@ -14,16 +14,20 @@ var answer1Button = document.getElementById('answer1Button');
 var answer2Button = document.getElementById('answer2Button');
 var answer3Button = document.getElementById('answer3Button');
 var answer4Button = document.getElementById('answer4Button');
+var submitScoreButton = document.getElementById('submitScoreButton');
+var refreshButton = document.getElementById('refreshButton');
 // Defining text that will be changed
 var quizQuestion = document.getElementById('quizQuestion');
 var comment = document.getElementById('comment');
 var timer = document.getElementById('timer');
 var timeLeft = 70;
 var finalScore = '';
+var playerName = document.getElementById("playerName");
 // Defining CSS that will be changed
 var mainContainer = document.querySelector('.mainContainer');
 var startScreenContainer = document.querySelector('.startScreenContainer');
 var finalScoreContainer = document.querySelector('.finalScoreContainer');
+var highScoresContainer = document.querySelector('.highScoresContainer');
 // creates local storage for highscores
 var highScoresData = {};
 
@@ -34,6 +38,7 @@ startButton.addEventListener('click', startQuiz);
 function startQuiz() {
     // Displays the quiz content (mainContainer)
     mainContainer.style.display = 'flex';
+    highScoresContainer.style.display = 'none';
     // Hides the intro (startScreenContainer)
     startScreenContainer.style.display = 'none';
     answer2Button.style.display = 'inline';
@@ -120,7 +125,7 @@ function questionFour() {
 function setTimer() {
     var countdown = setInterval(function() {
         if (finalScore != '') {
-            clearInterval(countdown)
+            clearInterval(countdown);
             timer.innerHTML = finalScore;
         }
         else if (timeLeft == 1) {
@@ -191,6 +196,69 @@ function qwrong () {
     }
 }
 
-// function to save highscores to local storage
+//Refresh button event listener
+refreshButton.addEventListener('click', refresh);
+//Refresh button function
+function refresh() {
+    location.reload();
+}
 
-// function to view highscores
+// Program highScores button 
+highScoresButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    showHighScores();
+});
+
+function showHighScores() {
+    renderHighScores();
+    mainContainer.style.display = 'none';
+    startScreenContainer.style.display = 'none';
+    finalScoreContainer.style.display = 'none';
+    highScoresContainer.style.display = 'flex';
+}
+
+
+// function to save highscores to local storage
+submitScoreButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    // Records player name
+    if(playerName.value == "") {
+        alert('You must enter a name to go with your score :)')
+        return;
+    } else {
+        localStorage.setItem("playerName", playerName.value);
+        localStorage.setItem("score", finalScore);
+    }
+
+    // shows high score screen and hides other containers
+    mainContainer.style.display = 'none';
+    startScreenContainer.style.display = 'none';
+    finalScoreContainer.style.display = 'none';
+    highScoresContainer.style.display = 'flex';
+    // Render scores to highscores
+    renderHighScores();
+});
+
+function renderHighScores() {
+    var playerNameUl = document.getElementById('playerNameUl');
+    var playerScoreUl = document.getElementById('playerScoreUl');
+
+    var userNameLocalStorage = localStorage.getItem('playerName');
+    var paraName = document.createElement("p");
+    var playerNamePEl = document.createTextNode(userNameLocalStorage);
+    paraName.appendChild(playerNamePEl);
+    playerNameUl.appendChild(paraName);
+
+    var playerScoreLocalStorage = localStorage.getItem('score');
+    var paraScore = document.createElement("p");
+    var playerScorepEl = document.createTextNode(playerScoreLocalStorage);
+    paraScore.appendChild(playerScorepEl);
+    playerScoreUl.appendChild(paraScore);
+}
+
+// function renderUserScore(){
+//     var userInitials = localStorage.getItem("initials");
+//     userInitialsSpan.textContent = userInitials;
+//     var userScore = localStorage.getItem("recentScore");
+//     userInitialsSpan.textContent = userInitials + " scored " + userScore + " points";
+// }
